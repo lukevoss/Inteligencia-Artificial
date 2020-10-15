@@ -1,0 +1,3 @@
+﻿  main.c
+C:\Users\luke\OneDrive\Dokumente\UniCadiz\Semestre 1\Inteligencia Artificial\N-Puzzle\N-Puzzle\main.c(17,9): warning C4013: "printf" undefiniert; Annahme: extern mit Rückgabetyp int
+  N-Puzzle.vcxproj -> C:\Users\luke\OneDrive\Dokumente\UniCadiz\Semestre 1\Inteligencia Artificial\N-Puzzle\Debug\N-Puzzle.exe
