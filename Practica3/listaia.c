@@ -27,13 +27,27 @@ void ExtraerPrimero(LISTA c, void *n, int size){
 };//Extraer primer elemento
 
 void ExtraerUltimo(LISTA c, void* n, int size) {
-    LISTA aux = VACIA;
-    aux = *c;
+    LISTA aux;
+    aux=c;
     while (aux->next != NULL) {
         aux = aux->next;
     }
     memcpy((void*)n, (void*)aux->nodo, size);
 };
+
+void EliminarUltimo(LISTA* c) {
+    LISTA aux = VACIA;
+    LISTA aux2 = VACIA;
+    aux = *c;
+    aux2 = aux->next;
+    while (aux2->next != NULL) {
+        aux = aux->next;
+        aux2 = aux2->next;
+    }
+    aux->next = NULL;
+    free(aux2);
+}//EliminarUltimo
+
 
 
 void EliminarPrimero(LISTA *c){

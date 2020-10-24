@@ -1,9 +1,27 @@
+#pragma once
+
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "stack.h"
+// Data structure for stack
+struct stack
+{
+	int maxsize;	// define max capacity of stack
+	int top;
+	int* items;
+};
 
+// Utility function to initialize stack
+struct stack* newStack(int capacity)
+{
+	struct stack* pt = (struct stack*)malloc(sizeof(struct stack));
 
+	pt->maxsize = capacity;
+	pt->top = -1;
+	pt->items = (int*)malloc(sizeof(int) * capacity);
+
+	return pt;
+}
 
 // Utility function to return the size of the stack
 int size(struct stack* pt)

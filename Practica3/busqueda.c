@@ -12,6 +12,7 @@
 #include "puzle.h"
 #include "listaia.h"
 #include "busqueda.h"
+#include "stack.h"
 
 void solucionFin(int res){
    printf("\nFin de la busqueda\n");

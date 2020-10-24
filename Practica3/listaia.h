@@ -25,6 +25,9 @@ void InsertarPrimero(LISTA *c, void *n, int size);
 void ExtraerPrimero(LISTA c, void *n, int size);
 void EliminarPrimero(LISTA *c);
 
+void ExtraerUltimo(LISTA c, void* n, int size);
+void EliminarUltimo(LISTA* c);
+
 void InsertarUltimo(LISTA *c, void *n, int size);
 LISTA Concatenar(LISTA l1,LISTA l2);
 

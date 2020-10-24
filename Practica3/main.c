@@ -14,6 +14,13 @@
 #include "busqueda.h"
 
 int main(){
+    //test usar lista como stack
+    LISTA test = NULL;
+    InsertarUltimo()
+
+
+
+
     solucionFin(busquedaAnchura());
     return 0;
 }
