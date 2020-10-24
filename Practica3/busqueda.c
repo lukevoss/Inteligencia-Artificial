@@ -73,7 +73,8 @@ LISTA expandir(tNodo *nodo){
 return sucesores;
 }
 
-int busqueda(){
+//Búsqueda en Anchura
+int busquedaAnchura(){
     int objetivo=0, visitados=0;
     tNodo *Actual=(tNodo*) calloc(1,sizeof(tNodo));
     tNodo *Inicial=nodoInicial();
@@ -92,6 +93,35 @@ int busqueda(){
       }
    }//while
    
+    printf("\nVisitados= %d\n", visitados);
+    if (objetivo)
+        dispSolucion(Actual);
+    free(Sucesores);
+    free(Inicial);
+    free(Actual);
+    return objetivo;
+}
+
+//Búsqueda en Profundidad
+int busquedaProfundidad() {
+    int objetivo = 0, visitados = 0;
+    tNodo* Actual = (tNodo*)calloc(1, sizeof(tNodo));
+    tNodo* Inicial = nodoInicial();
+
+    LISTA Abiertos = VACIA;
+    LISTA Sucesores = VACIA;
+    InsertarPrimero(&Abiertos, (tNodo*)Inicial, sizeof(tNodo));
+    while (!esVacia(Abiertos) && !objetivo) {
+        Actual = (tNodo*)calloc(1, sizeof(tNodo));
+        ExtraerPrimero(Abiertos, Actual, sizeof(tNodo));
+        EliminarPrimero(&Abiertos);
+        objetivo = testObjetivo(Actual->estado);
+        if (!objetivo) {
+            Sucesores = expandir(Actual);
+            Abiertos = Concatenar(Abiertos, Sucesores);
+        }
+    }//while
+
     printf("\nVisitados= %d\n", visitados);
     if (objetivo)
         dispSolucion(Actual);

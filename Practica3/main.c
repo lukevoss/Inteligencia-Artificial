@@ -14,6 +14,6 @@
 #include "busqueda.h"
 
 int main(){
-    solucionFin(busqueda());
+    solucionFin(busquedaAnchura());
     return 0;
 }
