@@ -24,9 +24,6 @@
     <ClInclude Include="..\..\puzle.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="stack.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\busqueda.c">
@@ -39,9 +36,6 @@
       <Filter>Ressourcendateien</Filter>
     </ClCompile>
     <ClCompile Include="..\..\puzle.c">
-      <Filter>Ressourcendateien</Filter>
-    </ClCompile>
-    <ClCompile Include="stack.c">
       <Filter>Ressourcendateien</Filter>
     </ClCompile>
   </ItemGroup>

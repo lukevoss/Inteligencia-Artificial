@@ -142,14 +142,12 @@
     <ClInclude Include="..\..\busqueda.h" />
     <ClInclude Include="..\..\listaia.h" />
     <ClInclude Include="..\..\puzle.h" />
-    <ClInclude Include="stack.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\busqueda.c" />
     <ClCompile Include="..\..\listaia.c" />
     <ClCompile Include="..\..\main.c" />
     <ClCompile Include="..\..\puzle.c" />
-    <ClCompile Include="stack.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
