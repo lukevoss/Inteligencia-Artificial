@@ -114,8 +114,8 @@ int busquedaProfundidad() {
     InsertarPrimero(&Abiertos, (tNodo*)Inicial, sizeof(tNodo));
     while (!esVacia(Abiertos) && !objetivo) {
         Actual = (tNodo*)calloc(1, sizeof(tNodo));
-        ExtraerPrimero(Abiertos, Actual, sizeof(tNodo));
-        EliminarPrimero(&Abiertos);
+        ExtraerUltimo(Abiertos, Actual, sizeof(tNodo));
+        EliminarUltimo(&Abiertos);
         objetivo = testObjetivo(Actual->estado);
         if (!objetivo) {
             Sucesores = expandir(Actual);
