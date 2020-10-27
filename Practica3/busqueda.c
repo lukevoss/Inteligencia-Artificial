@@ -74,9 +74,10 @@ LISTA expandir(tNodo *nodo){
 return sucesores;
 }
 
+
 //Búsqueda en Anchura
 int busquedaAnchura(){
-    int objetivo=0, visitados=0;
+    int objetivo=0, visitados=0, expansiones=0;
     tNodo *Actual=(tNodo*) calloc(1,sizeof(tNodo));
     tNodo *Inicial=nodoInicial();
 
@@ -87,14 +88,17 @@ int busquedaAnchura(){
         Actual=(tNodo*) calloc(1,sizeof(tNodo));
         ExtraerPrimero(Abiertos,Actual, sizeof(tNodo));
         EliminarPrimero(&Abiertos);
+        visitados++; //aumentar en 1
         objetivo=testObjetivo(Actual->estado);
         if (!objetivo){
             Sucesores = expandir(Actual);
             Abiertos=Concatenar(Abiertos,Sucesores);
+            expansiones++;
       }
    }//while
    
     printf("\nVisitados= %d\n", visitados);
+    printf("Expansiones= %d\n", expansiones);
     if (objetivo)
         dispSolucion(Actual);
     free(Sucesores);
@@ -105,7 +109,7 @@ int busquedaAnchura(){
 
 //Búsqueda en Profundidad
 int busquedaProfundidad() {
-    int objetivo = 0, visitados = 0;
+    int objetivo = 0, visitados = 0, expansiones = 0;
     tNodo* Actual = (tNodo*)calloc(1, sizeof(tNodo));
     tNodo* Inicial = nodoInicial();
 
@@ -116,14 +120,118 @@ int busquedaProfundidad() {
         Actual = (tNodo*)calloc(1, sizeof(tNodo));
         ExtraerUltimo(Abiertos, Actual, sizeof(tNodo));
         EliminarUltimo(&Abiertos);
+        visitados++;
         objetivo = testObjetivo(Actual->estado);
         if (!objetivo) {
             Sucesores = expandir(Actual);
             Abiertos = Concatenar(Abiertos, Sucesores);
+            expansiones++;
         }
     }//while
 
     printf("\nVisitados= %d\n", visitados);
+    printf("Expansiones= %d\n", expansiones);
+    if (objetivo)
+        dispSolucion(Actual);
+    free(Sucesores);
+    free(Inicial);
+    free(Actual);
+    return objetivo;
+}
+
+//Búsqueda en Anchura con Control de Estados Repetidos
+int busquedaAnchurasinRep() {
+    int objetivo = 0, visitados = 0, expansiones = 0;
+    tNodo* Actual = (tNodo*)calloc(1, sizeof(tNodo));
+    tNodo* Inicial = nodoInicial();
+    LISTA Abiertos = VACIA;
+    LISTA Sucesores = VACIA;
+    LISTA Cerrados = VACIA;
+    int sizeCerrados = 0;
+    InsertarPrimero(&Abiertos, (tNodo*)Inicial, sizeof(tNodo));
+    while (!esVacia(Abiertos) && !objetivo) {
+        Actual = (tNodo*)calloc(1, sizeof(tNodo));
+        ExtraerPrimero(Abiertos, Actual, sizeof(tNodo));
+        EliminarPrimero(&Abiertos);
+        visitados++; //aumentar en 1
+        objetivo = testObjetivo(Actual->estado);
+
+        int yaVisto = 0;
+        LISTA nuevoCerrados = VACIA;
+
+        //TODO: make deep copy of Cerrados to nuevoCerrados
+
+        for (int i = 0; i < sizeCerrados; i++) {
+            tNodo* cerradoActual = (tNodo*)calloc(1, sizeof(tNodo));
+            cerradoActual = (tNodo*)calloc(1, sizeof(tNodo));
+            ExtraerPrimero(nuevoCerrados, cerradoActual, sizeof(tNodo));
+            EliminarPrimero(&nuevoCerrados);
+            yaVisto = iguales(cerradoActual->estado, Actual->estado);
+            if (yaVisto == 1) break;
+        }
+        
+        //TODO: control if costeCamino of cerradoActual is smaller than Actual (not a must)
+
+        if (!objetivo  && !yaVisto) { //prueba si el nodo ya ha sido visitado
+            Sucesores = expandir(Actual);
+            Abiertos = Concatenar(Abiertos, Sucesores);
+            expansiones++;
+            Cerrados = expandir(Actual);
+            sizeCerrados++;
+        }
+    }//while
+
+    printf("\nVisitados= %d\n", visitados);
+    printf("Expansiones= %d\n", expansiones);
+    if (objetivo)
+        dispSolucion(Actual);
+    free(Sucesores);
+    free(Inicial);
+    free(Actual);
+    return objetivo;
+}
+
+//Búsqueda en Profundidad con Control de Estados Repetidos
+int busquedaProfundidadsinRep() {
+    int objetivo = 0, visitados = 0, expansiones = 0;
+    tNodo* Actual = (tNodo*)calloc(1, sizeof(tNodo));
+    tNodo* Inicial = nodoInicial();
+    LISTA Abiertos = VACIA;
+    LISTA Sucesores = VACIA;
+    LISTA Cerrados = VACIA;
+    int sizeCerrados = 0;
+    InsertarPrimero(&Abiertos, (tNodo*)Inicial, sizeof(tNodo));
+    while (!esVacia(Abiertos) && !objetivo) {
+        Actual = (tNodo*)calloc(1, sizeof(tNodo));
+        ExtraerUltimo(Abiertos, Actual, sizeof(tNodo));
+        EliminarUltimo(&Abiertos);
+        visitados++; //aumentar en 1
+        objetivo = testObjetivo(Actual->estado);
+
+        int yaVisto = 0;
+        LISTA nuevoCerrados = VACIA;
+
+        //TODO: make deep copy of Cerrados to nuevoCerrados
+
+        for (int i = 0; i < sizeCerrados; i++) {
+            tNodo* cerradoActual = (tNodo*)calloc(1, sizeof(tNodo));
+            cerradoActual = (tNodo*)calloc(1, sizeof(tNodo));
+            ExtraerPrimero(nuevoCerrados, cerradoActual, sizeof(tNodo));
+            EliminarPrimero(&nuevoCerrados);
+            yaVisto = iguales(cerradoActual->estado, Actual->estado);
+            if (yaVisto == 1) break;
+        }
+        if (!objetivo) { //prueba si el nodo ya ha sido visitado
+            Sucesores = expandir(Actual);
+            Abiertos = Concatenar(Abiertos, Sucesores);
+            expansiones++;
+            Cerrados = expandir(Actual);
+            sizeCerrados++;
+        }
+    }//while
+
+    printf("\nVisitados= %d\n", visitados);
+    printf("Expansiones= %d\n", expansiones);
     if (objetivo)
         dispSolucion(Actual);
     free(Sucesores);

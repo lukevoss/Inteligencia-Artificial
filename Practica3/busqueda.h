@@ -21,6 +21,14 @@ typedef struct NodoBusqueda_{
 
 //Búsqueda en Anchura:
 int busquedaAnchura(void);
+
 //Búsqueda en Profundidad
 int busquedaProfundidad(void);
+
+//Búsqueda en Anchura:
+int busquedaAnchurasinRep(void);
+
+//Búsqueda en Profundidad
+int busquedaProfundidadsinRep(void);
+
 void solucionFin(int res);

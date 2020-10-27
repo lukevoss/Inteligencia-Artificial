@@ -18,9 +18,6 @@ int main(){
     //LISTA test = NULL;
     //InsertarUltimo()
 
-
-
-
-    solucionFin(busquedaProfundidad());
+    solucionFin(busquedaAnchurasinRep());
     return 0;
 }
