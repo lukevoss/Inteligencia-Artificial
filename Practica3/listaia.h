@@ -30,6 +30,7 @@ void EliminarUltimo(LISTA* c);
 
 void InsertarUltimo(LISTA *c, void *n, int size);
 LISTA Concatenar(LISTA l1,LISTA l2);
+LISTA CopiarLista(LISTA original);
 
 
 
