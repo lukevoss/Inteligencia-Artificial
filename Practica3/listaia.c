@@ -111,7 +111,7 @@ LISTA CopiarLista(LISTA original)
         // special case for the first new Node
         if (newList == NULL)
         {
-            newList = (LISTA*)malloc(sizeof(LISTA));
+            newList = (LISTA)malloc(sizeof(LISTA));//newList = (LISTA*)malloc(sizeof(LISTA));
             *newList->nodo = current->nodo;
             newList->next = NULL;
             tail = newList;
