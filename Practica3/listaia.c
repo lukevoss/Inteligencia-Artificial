@@ -39,7 +39,7 @@ void EliminarUltimo(LISTA* c) {
     LISTA aux = VACIA;
     LISTA aux2 = VACIA;
     if (esVacia(*c)) {
-        exit(EXIT_SUCCESS);
+        exit(EXIT_SUCCESS); //not sure if right exit code
     }
     aux = *c;
     if (esVacia(aux->next))
