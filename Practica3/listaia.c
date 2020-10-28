@@ -39,13 +39,11 @@ void EliminarUltimo(LISTA* c) {
     LISTA aux = VACIA;
     LISTA aux2 = VACIA;
     if (esVacia(c)) {
-        printf("es Vacia");
         return 0;
     }
     aux = *c;
     if(esVacia(aux->next))
     {
-        printf("aux es Vacia");
         *c = VACIA;
         free(aux);
     }
@@ -56,8 +54,7 @@ void EliminarUltimo(LISTA* c) {
             aux2 = aux2->next;
         }
         aux->next = NULL;
-        free(aux2);
-        printf("deleted last element");
+        free(aux2);      
     }
 }//EliminarUltimo
 
