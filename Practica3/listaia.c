@@ -64,7 +64,7 @@ void EliminarPrimero(LISTA* c) {
     LISTA p;
     p = *c;
     *c = p->next;
-    free(p);
+    //free(p);
 }//Eliminar primer elemento de la lista
 
 void InsertarUltimo(LISTA* c, void* n, int size) {

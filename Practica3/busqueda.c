@@ -147,7 +147,6 @@ int busquedaAnchurasinRep() {
     LISTA Abiertos = VACIA;
     LISTA Sucesores = VACIA;
     LISTA Cerrados = VACIA;
-    int sizeCerrados = 0;
     InsertarPrimero(&Abiertos, (tNodo*)Inicial, sizeof(tNodo));
     while (!esVacia(Abiertos) && !objetivo) {
         Actual = (tNodo*)calloc(1, sizeof(tNodo));
@@ -162,13 +161,16 @@ int busquedaAnchurasinRep() {
         //TODO: make deep copy of Cerrados to nuevoCerrados
         nuevoCerrados = CopiarLista(Cerrados);
 
-        for (int i = 0; i < sizeCerrados; i++) {
+        while(!esVacia(nuevoCerrados)){
             tNodo* cerradoActual = (tNodo*)calloc(1, sizeof(tNodo));
             cerradoActual = (tNodo*)calloc(1, sizeof(tNodo));
             ExtraerPrimero(nuevoCerrados, cerradoActual, sizeof(tNodo));
             EliminarPrimero(&nuevoCerrados);
             yaVisto = iguales(cerradoActual->estado, Actual->estado);
-            if (yaVisto == 1) break;
+            if (yaVisto == 1) {
+                printf("\nseen this MF");
+                break;
+            }
         }
         
         //TODO: control if costeCamino of cerradoActual is smaller than Actual (not a must)
@@ -178,7 +180,6 @@ int busquedaAnchurasinRep() {
             Abiertos = Concatenar(Abiertos, Sucesores);
             expansiones++;
             Cerrados = expandir(Actual);
-            sizeCerrados++;
         }
     }//while
 
