@@ -78,14 +78,43 @@ void InsertarUltimo(LISTA *c, void *n, int size){
 LISTA Concatenar(LISTA c,LISTA p){
     LISTA aux;
     if (esVacia(c))
-        c= p;
+        c = p;
     else {
-        aux=c;
-        while (aux->next!= NULL) {
+        aux = c;
+        while (aux->next != NULL) {
             aux = aux->next;
         }
-        aux->next=p;
+        aux->next = p;
     }
     return c;
 }//Concatenar
 
+// Function that takes a linked list & returns its complete copy
+LISTA CopiarLista(LISTA original)
+{
+    LISTA current = original;	// used to iterate over original list
+    LISTA newList = NULL; // head of the new list
+    LISTA tail = NULL;	// point to last node in new list
+
+    while (current != NULL)
+    {
+        // special case for the first new Node
+        if (newList == NULL)
+        {
+            newList = (LISTA*)malloc(sizeof(LISTA));
+            *newList->nodo = current->nodo;
+            newList->next = NULL;
+            tail = newList;
+        }
+        else
+        {
+            tail->next = (LISTA*)malloc(sizeof(LISTA));
+            tail = tail->next;
+            *tail->nodo = current->nodo;
+            tail->next = NULL;
+        }
+        current = current->next;
+    }
+
+    return newList;
+}
