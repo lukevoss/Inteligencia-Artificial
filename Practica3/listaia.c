@@ -10,25 +10,25 @@
 #include <string.h>
 #include "listaia.h"
 
-int esVacia( LISTA c){
+int esVacia(LISTA c) {
     return (c == VACIA);
 }//esVacia
 
-void InsertarPrimero(LISTA *c, void *n, int size){
-    LISTA p=(LISTA ) malloc(sizeof(LISTA)+size);
-    memcpy((void *)p->nodo,(void*)n, size);
-    p->next=(*c);
-    *c=p;
+void InsertarPrimero(LISTA* c, void* n, int size) {
+    LISTA p = (LISTA)malloc(sizeof(LISTA) + size);
+    memcpy((void*)p->nodo, (void*)n, size);
+    p->next = (*c);
+    *c = p;
 }//InsertarPrimero
 
 
-void ExtraerPrimero(LISTA c, void *n, int size){
-    memcpy((void *) n, (void *) c->nodo,size);
+void ExtraerPrimero(LISTA c, void* n, int size) {
+    memcpy((void*)n, (void*)c->nodo, size);
 };//Extraer primer elemento
 
 void ExtraerUltimo(LISTA c, void* n, int size) {
     LISTA aux;
-    aux=c;
+    aux = c;
     while (aux->next != NULL) {
         aux = aux->next;
     }
@@ -38,11 +38,11 @@ void ExtraerUltimo(LISTA c, void* n, int size) {
 void EliminarUltimo(LISTA* c) {
     LISTA aux = VACIA;
     LISTA aux2 = VACIA;
-    if (esVacia(c)) {
-        return 0;
+    if (esVacia(*c)) {
+        exit(EXIT_SUCCESS);
     }
     aux = *c;
-    if(esVacia(aux->next))
+    if (esVacia(aux->next))
     {
         *c = VACIA;
         free(aux);
@@ -54,34 +54,34 @@ void EliminarUltimo(LISTA* c) {
             aux2 = aux2->next;
         }
         aux->next = NULL;
-        free(aux2);      
+        free(aux2);
     }
 }//EliminarUltimo
 
 
 
-void EliminarPrimero(LISTA *c){
+void EliminarPrimero(LISTA* c) {
     LISTA p;
-    p=*c;
-    *c=p->next;
+    p = *c;
+    *c = p->next;
     free(p);
 }//Eliminar primer elemento de la lista
 
-void InsertarUltimo(LISTA *c, void *n, int size){
-    LISTA p=malloc(sizeof(LISTA)+size);
-    LISTA aux=VACIA;
+void InsertarUltimo(LISTA* c, void* n, int size) {
+    LISTA p = malloc(sizeof(LISTA) + size);
+    LISTA aux = VACIA;
     //creando el nodo
-    memcpy((void*)(p->nodo),(void *) n, size);
-    p->next=NULL;
-    if (esVacia(*c)){
-        *c=p;
+    memcpy((void*)(p->nodo), (void*)n, size);
+    p->next = NULL;
+    if (esVacia(*c)) {
+        *c = p;
     }
-    else{
-        aux=*c;
-        while (aux->next!=NULL){
-            aux=aux->next;
+    else {
+        aux = *c;
+        while (aux->next != NULL) {
+            aux = aux->next;
         }
-        aux->next=p;
+        aux->next = p;
     }
 }//InsertarUltimo
 
