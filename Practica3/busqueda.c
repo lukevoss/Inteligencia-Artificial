@@ -256,18 +256,18 @@ int busquedaProfundidadLimitada(int limite) {
         EliminarUltimo(&Abiertos);
         visitados++;
         objetivo = testObjetivo(Actual->estado);
-        if (!objetivo && Actual->profundidad <= limite) {
+        if (!objetivo && Actual->profundidad <= (limite-1))
+        {
             Sucesores = expandir(Actual);
             Abiertos = Concatenar(Abiertos, Sucesores);
             expansiones++;
         }
     }//while
-
     printf("\nVisitados= %d\n", visitados);
     printf("Expansiones= %d\n", expansiones);
     if (objetivo)
         dispSolucion(Actual);
-    free(Sucesores);
+    //free(Sucesores);
     free(Inicial);
     free(Actual);
     return objetivo;

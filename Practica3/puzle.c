@@ -113,13 +113,13 @@ int esValido(unsigned op, tEstado *estado)
         valido = estado->fila[0] != 0; //prueba si la fila es valido para ir arriba
         break;
     case ABAJO:
-        valido = estado->fila[0] != 2; //prueba si la fila es valido para ir abajo
+        valido = estado->fila[0] != N-1; //prueba si la fila es valido para ir abajo
         break;
     case IZQUIERDA:
         valido = estado->col[0] != 0; //prueba si la columna es valido para ir a la izquierda
         break;
     case DERECHA:
-        valido = estado->col[0] != 2; //prueba si la columna es valido para ir a la derecha
+        valido = estado->col[0] != N-1; //prueba si la columna es valido para ir a la derecha
         break;
     default:
         valido = 0;
