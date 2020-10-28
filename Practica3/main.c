@@ -17,7 +17,7 @@ int main(){
     ////test usar lista como stack
     //LISTA test = NULL;
     //InsertarUltimo()
-    solucionFin(busquedaAnchurasinRep());
+    solucionFin(busquedaProfundidadsinRep());
 
     return 0;
 }
