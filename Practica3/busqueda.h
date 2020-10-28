@@ -31,4 +31,7 @@ int busquedaAnchurasinRep(void);
 //Búsqueda en Profundidad
 int busquedaProfundidadsinRep(void);
 
+//Búsqueda en Profundidad Limitada
+int busquedaProfundidadLimitada(int limite);
+
 void solucionFin(int res);

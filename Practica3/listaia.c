@@ -11,7 +11,7 @@
 #include "listaia.h"
 
 int esVacia( LISTA c){
-    return (c==VACIA);
+    return (c == VACIA);
 }//esVacia
 
 void InsertarPrimero(LISTA *c, void *n, int size){
@@ -38,14 +38,27 @@ void ExtraerUltimo(LISTA c, void* n, int size) {
 void EliminarUltimo(LISTA* c) {
     LISTA aux = VACIA;
     LISTA aux2 = VACIA;
-    aux = *c;
-    aux2 = aux->next;
-    while (aux2->next != NULL) {
-        aux = aux->next;
-        aux2 = aux2->next;
+    if (esVacia(c)) {
+        printf("es Vacia");
+        return 0;
     }
-    aux->next = NULL;
-    free(aux2);
+    aux = *c;
+    if(esVacia(aux->next))
+    {
+        printf("aux es Vacia");
+        *c = VACIA;
+        free(aux);
+    }
+    else {
+        aux2 = aux->next;
+        while (aux2->next != NULL) {
+            aux = aux->next;
+            aux2 = aux2->next;
+        }
+        aux->next = NULL;
+        free(aux2);
+        printf("deleted last element");
+    }
 }//EliminarUltimo
 
 
@@ -75,16 +88,16 @@ void InsertarUltimo(LISTA *c, void *n, int size){
     }
 }//InsertarUltimo
 
-LISTA Concatenar(LISTA c,LISTA p){
+LISTA Concatenar(LISTA c, LISTA p) {
     LISTA aux;
     if (esVacia(c))
-        c= p;
+        c = p;
     else {
-        aux=c;
-        while (aux->next!= NULL) {
+        aux = c;
+        while (aux->next != NULL) {
             aux = aux->next;
         }
-        aux->next=p;
+        aux->next = p;
     }
     return c;
 }//Concatenar

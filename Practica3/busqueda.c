@@ -240,3 +240,34 @@ int busquedaProfundidadsinRep() {
     return objetivo;
 }
 
+//Búsqueda en Profundidad Limitada
+int busquedaProfundidadLimitada(int limite) {
+    int objetivo = 0, visitados = 0, expansiones = 0;
+    tNodo* Actual = (tNodo*)calloc(1, sizeof(tNodo));
+    tNodo* Inicial = nodoInicial();
+
+    LISTA Abiertos = VACIA;
+    LISTA Sucesores = VACIA;
+    InsertarPrimero(&Abiertos, (tNodo*)Inicial, sizeof(tNodo));
+    while (!esVacia(Abiertos) && !objetivo) {
+        Actual = (tNodo*)calloc(1, sizeof(tNodo));
+        ExtraerUltimo(Abiertos, Actual, sizeof(tNodo));
+        EliminarUltimo(&Abiertos);
+        visitados++;
+        objetivo = testObjetivo(Actual->estado);
+        if (!objetivo && Actual->profundidad <= limite) {
+            Sucesores = expandir(Actual);
+            Abiertos = Concatenar(Abiertos, Sucesores);
+            expansiones++;
+        }
+    }//while
+
+    printf("\nVisitados= %d\n", visitados);
+    printf("Expansiones= %d\n", expansiones);
+    if (objetivo)
+        dispSolucion(Actual);
+    free(Sucesores);
+    free(Inicial);
+    free(Actual);
+    return objetivo;
+}
