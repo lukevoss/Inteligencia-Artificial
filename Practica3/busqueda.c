@@ -160,6 +160,7 @@ int busquedaAnchurasinRep() {
         LISTA nuevoCerrados = VACIA;
 
         //TODO: make deep copy of Cerrados to nuevoCerrados
+        nuevoCerrados = CopiarLista(Cerrados);
 
         for (int i = 0; i < sizeCerrados; i++) {
             tNodo* cerradoActual = (tNodo*)calloc(1, sizeof(tNodo));
