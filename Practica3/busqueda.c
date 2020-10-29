@@ -211,20 +211,23 @@ int busquedaProfundidadsinRep() {
 
         int yaVisto = 0;
         LISTA nuevoCerrados = VACIA;
-
-        //TODO: make deep copy of Cerrados to nuevoCerrados
+        tNodo* cerradoActual = (tNodo*)calloc(1, sizeof(tNodo));
+        //make deep copy of Cerrados to nuevoCerrados
+        nuevoCerrados = CopiarLista(Cerrados);
 
         while (!esVacia(nuevoCerrados)) {
-            tNodo* cerradoActual = (tNodo*)calloc(1, sizeof(tNodo));
             cerradoActual = (tNodo*)calloc(1, sizeof(tNodo));
             ExtraerPrimero(nuevoCerrados, cerradoActual, sizeof(tNodo));
             EliminarPrimero(&nuevoCerrados);
+            dispNodo(cerradoActual->estado);
+            printf("\n compare to: \n");
+            dispNodo(Actual->estado);
             yaVisto = iguales(cerradoActual->estado, Actual->estado);
             if (yaVisto == 1) {
                 printf("\nseen this MF");
                 break;
-            }
-        }
+            }//if
+        }//while
         if (!objetivo) { //prueba si el nodo ya ha sido visitado
             Sucesores = expandir(Actual);
             Abiertos = Concatenar(Abiertos, Sucesores);
