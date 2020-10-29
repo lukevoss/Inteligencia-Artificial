@@ -57,7 +57,11 @@ void dispEstado(tEstado *estado)
    for (i=0; i<N; i++)
    {
       for (j=0; j<N; j++)
-         printf("%d",estado->celdas[i][j]);
+          if (estado == 0)
+          {
+              printf("Null");
+          }
+          else{ printf("%d", estado->celdas[i][j]); }
       printf("\n");
    }
    printf("\n");
