@@ -19,6 +19,8 @@ typedef struct NodoBusqueda_{
 
 #endif
 
+LISTA* find_node(LISTA* head, tEstado* estado_actual);
+
 //Búsqueda en Anchura:
 int busquedaAnchura(void);
 

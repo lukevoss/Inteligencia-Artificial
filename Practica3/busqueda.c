@@ -76,11 +76,14 @@ LISTA expandir(tNodo *nodo){
 return sucesores;
 }
 
-LISTA* find_node(LISTA* head, tEstado estado_actual) {
-    LISTA tmp = head;
+//encontrar un nodo en una lista
+//DONE
+LISTA* find_node(LISTA *head, tEstado *estado_actual) {
+    LISTA *tmp = head;
     while (tmp != NULL) {
-        if (igual(tmp->nodo, estado_actual)) return tmp;
-        tmp = tmp->next;
+        tNodo* nodo = (*tmp)->nodo;
+        if (iguales(nodo->estado, estado_actual)) return tmp;
+        tmp = (*tmp)->next;
     }
     return NULL;
 }
@@ -240,6 +243,56 @@ int busquedaAnchurasinRep() {
 }
 
 //Búsqueda en Profundidad con Control de Estados Repetidos
+//int busquedaProfundidadsinRep() {
+//    int objetivo = 0, visitados = 0, expansiones = 0;
+//    tNodo* Actual = (tNodo*)calloc(1, sizeof(tNodo));
+//    tNodo* Inicial = nodoInicial();
+//    LISTA Abiertos = VACIA;
+//    LISTA Sucesores = VACIA;
+//    LISTA Cerrados = VACIA;
+//    InsertarPrimero(&Abiertos, (tNodo*)Inicial, sizeof(tNodo));
+//    while (!esVacia(Abiertos) && !objetivo) {
+//        Actual = (tNodo*)calloc(1, sizeof(tNodo));
+//        ExtraerUltimo(Abiertos, Actual, sizeof(tNodo));
+//        EliminarUltimo(&Abiertos);
+//        visitados++; //aumentar en 1
+//        objetivo = testObjetivo(Actual->estado);
+//
+//        int yaVisto = 0;
+//        LISTA nuevoCerrados = VACIA;
+//        tNodo* cerradoActual = (tNodo*)calloc(1, sizeof(tNodo));
+//        //make deep copy of Cerrados to nuevoCerrados
+//        nuevoCerrados = CopiarLista(Cerrados);
+//
+//        while (!esVacia(nuevoCerrados)) {
+//            cerradoActual = (tNodo*)calloc(1, sizeof(tNodo));
+//            ExtraerPrimero(nuevoCerrados, cerradoActual, sizeof(tNodo));
+//            EliminarPrimero(&nuevoCerrados);
+//            yaVisto = iguales(cerradoActual->estado, Actual->estado);
+//            if (yaVisto == 1) {
+//                printf("\nseen this MF");
+//                break;
+//            }//if
+//        }//while
+//        if (!objetivo) { //prueba si el nodo ya ha sido visitado
+//            Sucesores = expandir(Actual);
+//            Abiertos = Concatenar(Abiertos, Sucesores);
+//            expansiones++;
+//            Cerrados = expandir(Actual);
+//        }
+//    }//while
+//
+//    printf("\nVisitados= %d\n", visitados);
+//    printf("Expansiones= %d\n", expansiones);
+//    if (objetivo)
+//        dispSolucion(Actual);
+//    free(Sucesores);
+//    free(Inicial);
+//    free(Actual);
+//    return objetivo;
+//}
+
+
 int busquedaProfundidadsinRep() {
     int objetivo = 0, visitados = 0, expansiones = 0;
     tNodo* Actual = (tNodo*)calloc(1, sizeof(tNodo));
@@ -256,27 +309,21 @@ int busquedaProfundidadsinRep() {
         objetivo = testObjetivo(Actual->estado);
 
         int yaVisto = 0;
-        LISTA nuevoCerrados = VACIA;
-        tNodo* cerradoActual = (tNodo*)calloc(1, sizeof(tNodo));
-        //make deep copy of Cerrados to nuevoCerrados
-        nuevoCerrados = CopiarLista(Cerrados);
+        LISTA* igualnodo = find_node(Cerrados, Actual->estado);
+        if (igualnodo != NULL) {
+            yaVisto = 1;
+            dispEstado(Actual->estado);
+            printf("iguales :\n");
+            tNodo* nodo = (*igualnodo)->nodo;
+            dispEstado(nodo->estado);
+        }//if
 
-        while (!esVacia(nuevoCerrados)) {
-            cerradoActual = (tNodo*)calloc(1, sizeof(tNodo));
-            ExtraerPrimero(nuevoCerrados, cerradoActual, sizeof(tNodo));
-            EliminarPrimero(&nuevoCerrados);
-            yaVisto = iguales(cerradoActual->estado, Actual->estado);
-            if (yaVisto == 1) {
-                printf("\nseen this MF");
-                break;
-            }//if
-        }//while
-        if (!objetivo) { //prueba si el nodo ya ha sido visitado
+        if (!objetivo && !yaVisto) { //prueba si el nodo ya ha sido visitado
             Sucesores = expandir(Actual);
             Abiertos = Concatenar(Abiertos, Sucesores);
             expansiones++;
             Cerrados = expandir(Actual);
-        }
+        }//if
     }//while
 
     printf("\nVisitados= %d\n", visitados);
@@ -288,6 +335,7 @@ int busquedaProfundidadsinRep() {
     free(Actual);
     return objetivo;
 }
+
 
 //Búsqueda en Profundidad Limitada
 //DONE
