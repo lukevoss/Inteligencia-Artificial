@@ -369,3 +369,38 @@ int busquedaProfundidadLimitada(int limite) {
     free(Actual);
     return objetivo;
 }
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+//                                  Busqueda Informada
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+// Entrada:
+// LISTA C: C es una lista vacía u ordenada de nodos
+// tNodo *nuevo: es un nodo de búsqueda
+// Devuelve una Lista de elementos
+LISTA InsertarOrdenado(LISTA C, tNodo* nuevo) {
+    //inicializaciones de las variables temporales
+    LISTA R = VACIA;
+    tNodo* nc = (tNodo*)calloc(1, sizeof(tNodo));
+
+    // nc es un tNodo que ira guardando nodos de la lista C
+   // R es una lista vacía al inicio y será la lista resultante del siguiente proceso
+
+    if (esVacia(C)) 
+        InsertarUltimo(&R, nuevo, sizeof(tNodo));
+    else {
+        ExtraerPrimero(C, nc, sizeof(tNodo));
+        while (!esVacia(C) && nc->valHeuristica < nuevo->valHeuristica)
+        {
+            InsertarUltimo(&R, nc, sizeof(tNodo));
+            C = C->next;
+            if (!(esVacia(C)))
+                ExtraerPrimero(C, nc, sizeof(tNodo));
+        }//while
+        InsertarUltimo(&R, nuevo, sizeof(tNodo));
+        R = Concatenar(R, C);
+     }//else
+
+    return R;
+}
