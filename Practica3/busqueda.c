@@ -302,14 +302,14 @@ int busquedaProfundidadLimitada(int limite) {
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////
-//                                  Busqueda Informada
+//                                  Busqueda Informada Voraz
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 // Entrada:
 // LISTA C: C es una lista vacía u ordenada de nodos
 // tNodo *nuevo: es un nodo de búsqueda
 // Devuelve una Lista de elementos
-LISTA InsertarOrdenado(LISTA C, tNodo* nuevo) {
+LISTA InsertarOrdenadoVoraz(LISTA C, tNodo* nuevo) {
     //inicializaciones de las variables temporales
     LISTA R = VACIA; // R es una lista vacía al inicio y será la lista resultante del siguiente proceso
     tNodo* nc = (tNodo*)calloc(1, sizeof(tNodo)); // nc es un tNodo que ira guardando nodos de la lista C
@@ -336,19 +336,19 @@ LISTA InsertarOrdenado(LISTA C, tNodo* nuevo) {
 //A	es una lista ordenada o	vacía
 //Suc es una lista de	nodos en	cualquier orden
 //Devuelve una lista ordenada conteniendo todoslos	elementosde	A	y	Suc
-LISTA	ordenarLista(LISTA	A, LISTA	Suc) {
+LISTA	ordenarListaVoraz(LISTA	A, LISTA Suc) {
     /*Insercion ordenada de	nodos sucesores en	la	lista ordenada A	*/
     tNodo* aux = (tNodo*)calloc(1, sizeof(tNodo));
     while (!esVacia(Suc)) {
         ExtraerPrimero(Suc, aux, sizeof(tNodo));
         EliminarPrimero(&Suc);
-        A = InsertarOrdenado(A, aux);
+        A = InsertarOrdenadoVoraz(A, aux);
     }
     return(A);//Devuelve	la	lista	ordenada
 }//ordenarLista
 
 //Búsqueda Voraz
-//NOT DONE
+//DONE
 int busquedaVoraz() {
     int objetivo = 0, visitados = 0, expansiones = 0;;
     tNodo* Actual = (tNodo*)calloc(1, sizeof(tNodo));
@@ -370,7 +370,91 @@ int busquedaVoraz() {
             if (esVacia(igualnodo)) {
                 Sucesores = expandir(Actual);
                 expansiones++;
-                Abiertos = ordenarLista(Abiertos, Sucesores);
+                Abiertos = ordenarListaVoraz(Abiertos, Sucesores);
+                InsertarPrimero(&Cerrados, (tNodo*)Actual, sizeof(tNodo));
+            }
+        }//objetivo
+    }//while
+    printf("Visitados= %d\n", visitados);
+    printf("Expansiones= %d\n", expansiones);
+    if (objetivo)
+        dispSolucion(Actual);
+    free(Sucesores);
+    free(Inicial);
+    free(Actual);
+    return objetivo;
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+//                                  Busqueda Informada A*
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+// Entrada:
+// LISTA C: C es una lista vacía u ordenada de nodos
+// tNodo *nuevo: es un nodo de búsqueda
+// Devuelve una Lista de elementos
+LISTA InsertarOrdenadoA(LISTA C, tNodo* nuevo) {
+    //inicializaciones de las variables temporales
+    LISTA R = VACIA; // R es una lista vacía al inicio y será la lista resultante del siguiente proceso
+    tNodo* nc = (tNodo*)calloc(1, sizeof(tNodo)); // nc es un tNodo que ira guardando nodos de la lista C
+
+    if (esVacia(C))
+        InsertarPrimero(&R, nuevo, sizeof(tNodo));
+    else {
+        ExtraerPrimero(C, nc, sizeof(tNodo));
+        while (!esVacia(C) &&  (nc->valHeuristica + nc->costeCamino) < (nuevo->valHeuristica + nuevo->costeCamino))
+        {
+            InsertarUltimo(&R, nc, sizeof(tNodo));
+            C = C->next;
+            if (!(esVacia(C)))
+                ExtraerPrimero(C, nc, sizeof(tNodo));
+        }//while
+        InsertarUltimo(&R, nuevo, sizeof(tNodo));
+        R = Concatenar(R, C);
+    }//else
+
+    return R;
+}
+
+//LISTA	ordenarLista(LISTA	A,	LISTA	Suc)
+//A	es una lista ordenada o	vacía
+//Suc es una lista de	nodos en	cualquier orden
+//Devuelve una lista ordenada conteniendo todoslos	elementosde	A	y	Suc
+LISTA ordenarListaA(LISTA A, LISTA Suc) {
+    /*Insercion ordenada de	nodos sucesores en	la	lista ordenada A	*/
+    tNodo* aux = (tNodo*)calloc(1, sizeof(tNodo));
+    while (!esVacia(Suc)) {
+        ExtraerPrimero(Suc, aux, sizeof(tNodo));
+        EliminarPrimero(&Suc);
+        A = InsertarOrdenadoA(A, aux);
+    }
+    return(A);//Devuelve	la	lista	ordenada
+}//ordenarLista
+
+//Búsqueda Voraz
+//DONE
+int busquedaA() {
+    int objetivo = 0, visitados = 0, expansiones = 0;;
+    tNodo* Actual = (tNodo*)calloc(1, sizeof(tNodo));
+    tNodo* Inicial = nodoInicial();
+
+    LISTA Cerrados = VACIA;
+    LISTA Abiertos = VACIA;
+    LISTA Sucesores = VACIA;
+    InsertarPrimero(&Abiertos, (tNodo*)Inicial, sizeof(tNodo));
+    while (!esVacia(Abiertos) && !objetivo) {
+        Actual = (tNodo*)calloc(1, sizeof(tNodo));
+        ExtraerPrimero(Abiertos, Actual, sizeof(tNodo));
+        EliminarPrimero(&Abiertos);
+        visitados++;
+        objetivo = testObjetivo(Actual->estado);
+        if (!objetivo) {
+            //repe = buscaRepeHeu(Actual, Cerrados, tipo);
+            LISTA* igualnodo = find_node(Cerrados, Actual->estado);
+            if (esVacia(igualnodo)) {
+                Sucesores = expandir(Actual);
+                expansiones++;
+                Abiertos = ordenarListaA(Abiertos, Sucesores);
                 InsertarPrimero(&Cerrados, (tNodo*)Actual, sizeof(tNodo));
             }
         }//objetivo

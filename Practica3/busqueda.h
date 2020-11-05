@@ -36,7 +36,17 @@ int busquedaProfundidadsinRep(void);
 //Búsqueda en Profundidad Limitada
 int busquedaProfundidadLimitada(int limite);
 
+
+
 //Búsqueda Voraz
+LISTA InsertarOrdenadoVoraz(LISTA C, tNodo* nuevo);
+LISTA	ordenarListaVoraz(LISTA	A, LISTA Suc);
 int busquedaVoraz();
+
+//Búsqueda A*
+LISTA InsertarOrdenadoA(LISTA C, tNodo* nuevo);
+LISTA ordenarListaA(LISTA	A, LISTA	Suc);
+int busquedaA();
+
 
 void solucionFin(int res);
