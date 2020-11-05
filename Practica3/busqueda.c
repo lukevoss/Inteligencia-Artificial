@@ -51,6 +51,7 @@ tNodo *nodoInicial(){
    inicial->padre=NULL;
    inicial->costeCamino=0;
    inicial->profundidad=0;
+   inicial->valHeuristica = piezasMalColocadas(inicial->estado);
    return inicial;
 }
 
@@ -68,14 +69,58 @@ LISTA expandir(tNodo *nodo){
           nuevo->operador=op;
           nuevo->costeCamino=nodo->costeCamino + coste(op,nodo->estado);
           nuevo->profundidad=nodo->profundidad+1;
+          nuevo->valHeuristica = piezasMalColocadas(nuevo->estado);
           InsertarUltimo(&sucesores,  (tNodo *) nuevo, (sizeof (tNodo)));
       }
   }
 return sucesores;
 }
 
+LISTA* find_node(LISTA* head, tEstado estado_actual) {
+    LISTA tmp = head;
+    while (tmp != NULL) {
+        if (igual(tmp->nodo, estado_actual)) return tmp;
+        tmp = tmp->next;
+    }
+    return NULL;
+}
+
+//void mysort(LISTA* head, LISTA* p1, LISTA* p2)
+//{
+//    LISTA temp2 = *p2;
+//    if (esVacia(temp2))
+//    {
+//        return;
+//    }
+//    LISTA temp1 = p1;
+//    LISTA* p3 = temp1->next;
+//    while (p3 != NULL)
+//    {
+//        int nodo1 = temp1->nodo;
+//        if (temp1->nodo > temp2->data)
+//        {
+//            swap(p1->data, p3->data);
+//        }
+//        p3 = p3->next;
+//    }
+//    mysort(head, p2, p2->next);
+//}
+//
+//void ordenarVoraz(LISTA* c) {
+//    LISTA aux = VACIA;
+//    aux = *c;
+//    LISTA aux2 = aux->next;
+//    tNodo* Actual = aux->nodo;
+//    tNodo* Siguente = aux2->nodo;
+//    if (Siguente->valHeuristica < Actual->valHeuristica) {
+//        aux->next = aux2->next;
+//        aux2->next = aux;
+//    }
+//} 
+
 
 //Búsqueda en Anchura
+//DONE
 int busquedaAnchura(){
     int objetivo=0, visitados=0, expansiones=0;
     tNodo *Actual=(tNodo*) calloc(1,sizeof(tNodo));
@@ -108,6 +153,7 @@ int busquedaAnchura(){
 }
 
 //Búsqueda en Profundidad
+//DONE
 int busquedaProfundidad() {
     int objetivo = 0, visitados = 0, expansiones = 0;
     tNodo* Actual = (tNodo*)calloc(1, sizeof(tNodo));
@@ -158,7 +204,7 @@ int busquedaAnchurasinRep() {
         int yaVisto = 0;
         LISTA nuevoCerrados = VACIA;
 
-        //TODO: make deep copy of Cerrados to nuevoCerrados
+        //deep copy of Cerrados to nuevoCerrados
         nuevoCerrados = CopiarLista(Cerrados);
 
         while(!esVacia(nuevoCerrados)){
@@ -219,9 +265,6 @@ int busquedaProfundidadsinRep() {
             cerradoActual = (tNodo*)calloc(1, sizeof(tNodo));
             ExtraerPrimero(nuevoCerrados, cerradoActual, sizeof(tNodo));
             EliminarPrimero(&nuevoCerrados);
-            dispNodo(cerradoActual->estado);
-            printf("\n compare to: \n");
-            dispNodo(Actual->estado);
             yaVisto = iguales(cerradoActual->estado, Actual->estado);
             if (yaVisto == 1) {
                 printf("\nseen this MF");
@@ -247,6 +290,7 @@ int busquedaProfundidadsinRep() {
 }
 
 //Búsqueda en Profundidad Limitada
+//DONE
 int busquedaProfundidadLimitada(int limite) {
     int objetivo = 0, visitados = 0, expansiones = 0;
     tNodo* Actual = (tNodo*)calloc(1, sizeof(tNodo));

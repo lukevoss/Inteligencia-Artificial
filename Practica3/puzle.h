@@ -60,3 +60,5 @@ int iguales(tEstado* s, tEstado* t);
 
 /* Devuelve 1 si un estado es igual al estado objetivo. */
 int testObjetivo(tEstado* estado);
+
+int piezasMalColocadas(tEstado* estado);

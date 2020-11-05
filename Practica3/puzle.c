@@ -170,6 +170,18 @@ tEstado *aplicaOperador(unsigned op, tEstado *estado)
     return nuevo;
 }
 
+int piezasMalColocadas(tEstado* estado) {
+    int malColocadas = 0;
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            if (estado->celdas[i][j] != puzle_final[i][j]) {
+                malColocadas++;
+            }
+        }
+    }
+    return malColocadas;
+}
+
 
 
 
