@@ -342,11 +342,7 @@ LISTA	ordenarLista(LISTA	A, LISTA	Suc) {
     while (!esVacia(Suc)) {
         ExtraerPrimero(Suc, aux, sizeof(tNodo));
         EliminarPrimero(&Suc);
-<<<<<<< HEAD
         A = InsertarOrdenado(A, aux);
-=======
-        InsertarOrdenado(&A, aux);
->>>>>>> 5d04fe98e749fe0c0c660a1df115725cbe266aa4
     }
     return(A);//Devuelve	la	lista	ordenada
 }//ordenarLista
