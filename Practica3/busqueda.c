@@ -27,7 +27,7 @@ void dispNodo(tNodo *nodo){
 }
 void dispCamino(tNodo *nodo){
     if (nodo->padre==NULL){
-        printf("\n Desde el inicio\n");
+        printf("\nDesde el inicio\n");
         dispEstado(nodo->estado);
     }
     else {
@@ -315,7 +315,7 @@ LISTA InsertarOrdenado(LISTA C, tNodo* nuevo) {
     tNodo* nc = (tNodo*)calloc(1, sizeof(tNodo)); // nc es un tNodo que ira guardando nodos de la lista C
 
     if (esVacia(C)) 
-        InsertarUltimo(&R, nuevo, sizeof(tNodo));
+        InsertarPrimero(&R, nuevo, sizeof(tNodo));
     else {
         ExtraerPrimero(C, nc, sizeof(tNodo));
         while (!esVacia(C) && nc->valHeuristica < nuevo->valHeuristica)
@@ -342,15 +342,19 @@ LISTA	ordenarLista(LISTA	A, LISTA	Suc) {
     while (!esVacia(Suc)) {
         ExtraerPrimero(Suc, aux, sizeof(tNodo));
         EliminarPrimero(&Suc);
+<<<<<<< HEAD
+        A = InsertarOrdenado(A, aux);
+=======
         InsertarOrdenado(&A, aux);
+>>>>>>> 5d04fe98e749fe0c0c660a1df115725cbe266aa4
     }
-        return(A);//Devuelve	la	lista	ordenada
+    return(A);//Devuelve	la	lista	ordenada
 }//ordenarLista
 
 //Búsqueda Voraz
 //NOT DONE
 int busquedaVoraz() {
-    int objetivo = 0;
+    int objetivo = 0, visitados = 0, expansiones = 0;;
     tNodo* Actual = (tNodo*)calloc(1, sizeof(tNodo));
     tNodo* Inicial = nodoInicial();
 
@@ -362,17 +366,21 @@ int busquedaVoraz() {
         Actual = (tNodo*)calloc(1, sizeof(tNodo));
         ExtraerPrimero(Abiertos, Actual, sizeof(tNodo));
         EliminarPrimero(&Abiertos);
+        visitados++;
         objetivo = testObjetivo(Actual->estado);
         if (!objetivo) {
             //repe = buscaRepeHeu(Actual, Cerrados, tipo);
             LISTA* igualnodo = find_node(Cerrados, Actual->estado);
             if (esVacia(igualnodo)) {
                 Sucesores = expandir(Actual);
+                expansiones++;
                 Abiertos = ordenarLista(Abiertos, Sucesores);
                 InsertarPrimero(&Cerrados, (tNodo*)Actual, sizeof(tNodo));
             }
         }//objetivo
     }//while
+    printf("Visitados= %d\n", visitados);
+    printf("Expansiones= %d\n", expansiones);
     if (objetivo)
         dispSolucion(Actual);
     free(Sucesores);
