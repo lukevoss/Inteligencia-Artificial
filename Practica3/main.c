@@ -14,6 +14,6 @@
 #include "busqueda.h"
 
 int main(){
-    solucionFin(busquedaProfundidadsinRep());
+    solucionFin(busquedaVoraz());
     return 0;
 }

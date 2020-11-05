@@ -311,11 +311,8 @@ int busquedaProfundidadLimitada(int limite) {
 // Devuelve una Lista de elementos
 LISTA InsertarOrdenado(LISTA C, tNodo* nuevo) {
     //inicializaciones de las variables temporales
-    LISTA R = VACIA;
-    tNodo* nc = (tNodo*)calloc(1, sizeof(tNodo));
-
-    // nc es un tNodo que ira guardando nodos de la lista C
-   // R es una lista vacía al inicio y será la lista resultante del siguiente proceso
+    LISTA R = VACIA; // R es una lista vacía al inicio y será la lista resultante del siguiente proceso
+    tNodo* nc = (tNodo*)calloc(1, sizeof(tNodo)); // nc es un tNodo que ira guardando nodos de la lista C
 
     if (esVacia(C)) 
         InsertarUltimo(&R, nuevo, sizeof(tNodo));
@@ -333,4 +330,53 @@ LISTA InsertarOrdenado(LISTA C, tNodo* nuevo) {
      }//else
 
     return R;
+}
+
+//LISTA	ordenarLista(LISTA	A,	LISTA	Suc)
+//A	es una lista ordenada o	vacía
+//Suc es una lista de	nodos en	cualquier orden
+//Devuelve una lista ordenada conteniendo todoslos	elementosde	A	y	Suc
+LISTA	ordenarLista(LISTA	A, LISTA	Suc) {
+    /*Insercion ordenada de	nodos sucesores en	la	lista ordenada A	*/
+    tNodo* aux = (tNodo*)calloc(1, sizeof(tNodo));
+    while (!esVacia(Suc)) {
+        ExtraerPrimero(Suc, aux, sizeof(tNodo));
+        EliminarPrimero(&Suc);
+        InsertarOrdenado(A, aux);
+    }
+        return(A);//Devuelve	la	lista	ordenada
+}//ordenarLista
+
+//Búsqueda Voraz
+//NOT DONE
+int busquedaVoraz() {
+    int objetivo = 0;
+    tNodo* Actual = (tNodo*)calloc(1, sizeof(tNodo));
+    tNodo* Inicial = nodoInicial();
+
+    LISTA Cerrados = VACIA;
+    LISTA Abiertos = VACIA;
+    LISTA Sucesores = VACIA;
+    InsertarPrimero(&Abiertos, (tNodo*)Inicial, sizeof(tNodo));
+    while (!esVacia(Abiertos) && !objetivo) {
+        Actual = (tNodo*)calloc(1, sizeof(tNodo));
+        ExtraerPrimero(Abiertos, Actual, sizeof(tNodo));
+        EliminarPrimero(&Abiertos);
+        objetivo = testObjetivo(Actual->estado);
+        if (!objetivo) {
+            //repe = buscaRepeHeu(Actual, Cerrados, tipo);
+            LISTA* igualnodo = find_node(Cerrados, Actual->estado);
+            if (esVacia(igualnodo)) {
+                Sucesores = expandir(Actual);
+                Abiertos = ordenarLista(Abiertos, Sucesores);
+                InsertarPrimero(&Cerrados, (tNodo*)Actual, sizeof(tNodo));
+            }
+        }//objetivo
+    }//while
+    if (objetivo)
+        dispSolucion(Actual);
+    free(Sucesores);
+    free(Inicial);
+    free(Actual);
+    return objetivo;
 }

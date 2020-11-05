@@ -36,4 +36,7 @@ int busquedaProfundidadsinRep(void);
 //Búsqueda en Profundidad Limitada
 int busquedaProfundidadLimitada(int limite);
 
+//Búsqueda Voraz
+int busquedaVoraz();
+
 void solucionFin(int res);
