@@ -353,6 +353,7 @@ int busquedaVoraz() {
     }//while
     printf("Visitados= %d\n", visitados);
     printf("Generados= %d\n", generados);
+    printf("max Longitud Abiertos= %d\n", maxNoAbiertos);
     if (objetivo)
         dispSolucion(Actual);
     free(Sucesores);
@@ -443,6 +444,7 @@ int busquedaA() {
     }//while
     printf("Visitados= %d\n", visitados);
     printf("Generados= %d\n", generados);
+    printf("max Longitud Abiertos= %d\n", maxNoAbiertos);
     if (objetivo)
         dispSolucion(Actual);
     free(Sucesores);
