@@ -1,5 +1,18 @@
 ﻿  busqueda.c
-  main.c
+C:\Users\luke\OneDrive\Dokumente\UniCadiz\Semestre 1\Inteligencia Artificial\Practica3\busqueda.c(87,27): warning C4047: "=": Anzahl der Dereferenzierungen bei "LISTA *" und "ListaNodos *" unterschiedlich
+C:\Users\luke\OneDrive\Dokumente\UniCadiz\Semestre 1\Inteligencia Artificial\Practica3\busqueda.c(85,1): warning C4133: "Initialisierung": Inkompatible Typen - von "int *" zu "tNodo *"
+C:\Users\luke\OneDrive\Dokumente\UniCadiz\Semestre 1\Inteligencia Artificial\Practica3\busqueda.c(178,46): warning C4047: "Funktion": Anzahl der Dereferenzierungen bei "LISTA *" und "LISTA" unterschiedlich
+C:\Users\luke\OneDrive\Dokumente\UniCadiz\Semestre 1\Inteligencia Artificial\Practica3\busqueda.c(178,38): warning C4024: "find_node": unterschiedliche Typen für formalen und übergebenen Parameter 1
+C:\Users\luke\OneDrive\Dokumente\UniCadiz\Semestre 1\Inteligencia Artificial\Practica3\busqueda.c(217,46): warning C4047: "Funktion": Anzahl der Dereferenzierungen bei "LISTA *" und "LISTA" unterschiedlich
+C:\Users\luke\OneDrive\Dokumente\UniCadiz\Semestre 1\Inteligencia Artificial\Practica3\busqueda.c(217,38): warning C4024: "find_node": unterschiedliche Typen für formalen und übergebenen Parameter 1
+C:\Users\luke\OneDrive\Dokumente\UniCadiz\Semestre 1\Inteligencia Artificial\Practica3\busqueda.c(338,50): warning C4047: "Funktion": Anzahl der Dereferenzierungen bei "LISTA *" und "LISTA" unterschiedlich
+C:\Users\luke\OneDrive\Dokumente\UniCadiz\Semestre 1\Inteligencia Artificial\Practica3\busqueda.c(338,42): warning C4024: "find_node": unterschiedliche Typen für formalen und übergebenen Parameter 1
+C:\Users\luke\OneDrive\Dokumente\UniCadiz\Semestre 1\Inteligencia Artificial\Practica3\busqueda.c(339,34): warning C4047: "Funktion": Anzahl der Dereferenzierungen bei "LISTA" und "LISTA *" unterschiedlich
+C:\Users\luke\OneDrive\Dokumente\UniCadiz\Semestre 1\Inteligencia Artificial\Practica3\busqueda.c(339,25): warning C4024: "esVacia": unterschiedliche Typen für formalen und übergebenen Parameter 1
+C:\Users\luke\OneDrive\Dokumente\UniCadiz\Semestre 1\Inteligencia Artificial\Practica3\busqueda.c(422,50): warning C4047: "Funktion": Anzahl der Dereferenzierungen bei "LISTA *" und "LISTA" unterschiedlich
+C:\Users\luke\OneDrive\Dokumente\UniCadiz\Semestre 1\Inteligencia Artificial\Practica3\busqueda.c(422,42): warning C4024: "find_node": unterschiedliche Typen für formalen und übergebenen Parameter 1
+C:\Users\luke\OneDrive\Dokumente\UniCadiz\Semestre 1\Inteligencia Artificial\Practica3\busqueda.c(423,34): warning C4047: "Funktion": Anzahl der Dereferenzierungen bei "LISTA" und "LISTA *" unterschiedlich
+C:\Users\luke\OneDrive\Dokumente\UniCadiz\Semestre 1\Inteligencia Artificial\Practica3\busqueda.c(423,25): warning C4024: "esVacia": unterschiedliche Typen für formalen und übergebenen Parameter 1
   puzle.c
   Code wird generiert...
   N-Puzle.vcxproj -> C:\Users\luke\OneDrive\Dokumente\UniCadiz\Semestre 1\Inteligencia Artificial\Practica3\N-Puzle\Debug\N-Puzle.exe
