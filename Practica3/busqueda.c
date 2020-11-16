@@ -94,10 +94,10 @@ LISTA* find_node(LISTA *head, tEstado *estado_actual) {
 //Búsqueda en Anchura
 //DONE
 int busquedaAnchura(){
-    int objetivo=0, visitados=0, expansiones=0;
+    int objetivo=0, visitados=0, generados=0;
     tNodo *Actual=(tNodo*) calloc(1,sizeof(tNodo));
     tNodo *Inicial=nodoInicial();
-
+    generados++;
     LISTA Abiertos= VACIA;
     LISTA Sucesores= VACIA;
     InsertarPrimero(&Abiertos,(tNodo*) Inicial,sizeof(tNodo));
@@ -109,13 +109,13 @@ int busquedaAnchura(){
         objetivo=testObjetivo(Actual->estado);
         if (!objetivo){
             Sucesores = expandir(Actual);
+            generados += LongitudLista(Sucesores);
             Abiertos=Concatenar(Abiertos,Sucesores);
-            expansiones++;
       }
    }//while
    
     printf("\nVisitados= %d\n", visitados);
-    printf("Expansiones= %d\n", expansiones);
+    printf("Generados= %d\n", generados);
     if (objetivo)
         dispSolucion(Actual);
     free(Sucesores);
@@ -127,10 +127,10 @@ int busquedaAnchura(){
 //Búsqueda en Profundidad
 //DONE
 int busquedaProfundidad() {
-    int objetivo = 0, visitados = 0, expansiones = 0;
+    int objetivo = 0, visitados = 0, generados = 0;
     tNodo* Actual = (tNodo*)calloc(1, sizeof(tNodo));
     tNodo* Inicial = nodoInicial();
-
+    generados++;
     LISTA Abiertos = VACIA;
     LISTA Sucesores = VACIA;
     InsertarPrimero(&Abiertos, (tNodo*)Inicial, sizeof(tNodo));
@@ -142,13 +142,13 @@ int busquedaProfundidad() {
         objetivo = testObjetivo(Actual->estado);
         if (!objetivo) {
             Sucesores = expandir(Actual);
+            generados += LongitudLista(Sucesores);
             Abiertos = Concatenar(Abiertos, Sucesores);
-            expansiones++;
         }
     }//while
 
     printf("\nVisitados= %d\n", visitados);
-    printf("Expansiones= %d\n", expansiones);
+    printf("Generados= %d\n", generados);
     if (objetivo)
         dispSolucion(Actual);
     free(Sucesores);
@@ -160,9 +160,10 @@ int busquedaProfundidad() {
 //Búsqueda en Anchura con Control de Estados Repetidos
 //DONE
 int busquedaAnchurasinRep() {
-    int objetivo = 0, visitados = 0, expansiones = 0;
+    int objetivo = 0, visitados = 0, generados = 0;
     tNodo* Actual = (tNodo*)calloc(1, sizeof(tNodo));
     tNodo* Inicial = nodoInicial();
+    generados++;
     LISTA Abiertos = VACIA;
     LISTA Sucesores = VACIA;
     LISTA Cerrados = VACIA;
@@ -181,13 +182,13 @@ int busquedaAnchurasinRep() {
 
         if (!objetivo && !yaVisto) { //prueba si el nodo ya ha sido visitado
             Sucesores = expandir(Actual);
+            generados += LongitudLista(Sucesores);
             Abiertos = Concatenar(Abiertos, Sucesores);
-            expansiones++;
         }//if
     }//while
 
     printf("\nVisitados= %d\n", visitados);
-    printf("Expansiones= %d\n", expansiones);
+    printf("Generados= %d\n", generados);
     if (objetivo)
         dispSolucion(Actual);
     free(Sucesores);
@@ -199,9 +200,10 @@ int busquedaAnchurasinRep() {
 //Búsqueda en Profundidad con Control de Estados Repetidos
 //DONE
 int busquedaProfundidadsinRep() {
-    int objetivo = 0, visitados = 0, expansiones = 0;
+    int objetivo = 0, visitados = 0, generados = 0;
     tNodo* Actual = (tNodo*)calloc(1, sizeof(tNodo));
     tNodo* Inicial = nodoInicial();
+    generados++;
     LISTA Abiertos = VACIA;
     LISTA Sucesores = VACIA;
     LISTA Cerrados = VACIA;
@@ -220,13 +222,13 @@ int busquedaProfundidadsinRep() {
 
         if (!objetivo && !yaVisto) { //prueba si el nodo ya ha sido visitado
             Sucesores = expandir(Actual);
+            generados += LongitudLista(Sucesores);
             Abiertos = Concatenar(Abiertos, Sucesores);
-            expansiones++;
         }//if
     }//while
 
     printf("\nVisitados= %d\n", visitados);
-    printf("Expansiones= %d\n", expansiones);
+    printf("Generados= %d\n", generados);
     if (objetivo)
         dispSolucion(Actual);
     free(Sucesores);
@@ -239,10 +241,10 @@ int busquedaProfundidadsinRep() {
 //Búsqueda en Profundidad Limitada
 //DONE
 int busquedaProfundidadLimitada(int limite) {
-    int objetivo = 0, visitados = 0, expansiones = 0;
+    int objetivo = 0, visitados = 0, generados = 0;
     tNodo* Actual = (tNodo*)calloc(1, sizeof(tNodo));
     tNodo* Inicial = nodoInicial();
-
+    generados++;
     LISTA Abiertos = VACIA;
     LISTA Sucesores = VACIA;
     InsertarPrimero(&Abiertos, (tNodo*)Inicial, sizeof(tNodo));
@@ -255,12 +257,12 @@ int busquedaProfundidadLimitada(int limite) {
         if (!objetivo && Actual->profundidad <= (limite-1))
         {
             Sucesores = expandir(Actual);
+            generados += LongitudLista(Sucesores);
             Abiertos = Concatenar(Abiertos, Sucesores);
-            expansiones++;
         }
     }//while
     printf("\nVisitados= %d\n", visitados);
-    printf("Expansiones= %d\n", expansiones);
+    printf("Generados= %d\n", generados);
     if (objetivo)
         dispSolucion(Actual);
     //free(Sucesores);
@@ -319,10 +321,10 @@ LISTA	ordenarListaVoraz(LISTA	A, LISTA Suc) {
 //Búsqueda Voraz
 //DONE
 int busquedaVoraz() {
-    int objetivo = 0, visitados = 0, expansiones = 0;;
+    int objetivo = 0, visitados = 0, generados = 0;;
     tNodo* Actual = (tNodo*)calloc(1, sizeof(tNodo));
     tNodo* Inicial = nodoInicial();
-
+    generados++;
     LISTA Cerrados = VACIA;
     LISTA Abiertos = VACIA;
     LISTA Sucesores = VACIA;
@@ -338,14 +340,14 @@ int busquedaVoraz() {
             LISTA* igualnodo = find_node(Cerrados, Actual->estado);
             if (esVacia(igualnodo)) {
                 Sucesores = expandir(Actual);
-                expansiones++;
+                generados += LongitudLista(Sucesores);
                 Abiertos = ordenarListaVoraz(Abiertos, Sucesores);
                 InsertarPrimero(&Cerrados, (tNodo*)Actual, sizeof(tNodo));
             }
         }//objetivo
     }//while
     printf("Visitados= %d\n", visitados);
-    printf("Expansiones= %d\n", expansiones);
+    printf("Generados= %d\n", generados);
     if (objetivo)
         dispSolucion(Actual);
     free(Sucesores);
@@ -403,10 +405,10 @@ LISTA ordenarListaA(LISTA A, LISTA Suc) {
 //Búsqueda Voraz
 //DONE
 int busquedaA() {
-    int objetivo = 0, visitados = 0, expansiones = 0;;
+    int objetivo = 0, visitados = 0, generados = 0;;
     tNodo* Actual = (tNodo*)calloc(1, sizeof(tNodo));
     tNodo* Inicial = nodoInicial();
-
+    generados++; //primer nodo es generado
     LISTA Cerrados = VACIA;
     LISTA Abiertos = VACIA;
     LISTA Sucesores = VACIA;
@@ -422,14 +424,14 @@ int busquedaA() {
             LISTA* igualnodo = find_node(Cerrados, Actual->estado);
             if (esVacia(igualnodo)) {
                 Sucesores = expandir(Actual);
-                expansiones++;
+                generados += LongitudLista(Sucesores);
                 Abiertos = ordenarListaA(Abiertos, Sucesores);
                 InsertarPrimero(&Cerrados, (tNodo*)Actual, sizeof(tNodo));
             }
         }//objetivo
     }//while
     printf("Visitados= %d\n", visitados);
-    printf("Expansiones= %d\n", expansiones);
+    printf("Generados= %d\n", generados);
     if (objetivo)
         dispSolucion(Actual);
     free(Sucesores);
