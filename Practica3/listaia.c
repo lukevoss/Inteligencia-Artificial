@@ -128,3 +128,14 @@ LISTA CopiarLista(LISTA original)
 
     return newList;
 }
+
+int LongitudLista(LISTA list)
+{
+    int longitud = 0;
+    while (list != NULL)
+    {
+        longitud += 1;
+        list = list->next;
+    }
+    return longitud;
+}
