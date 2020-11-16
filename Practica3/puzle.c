@@ -183,5 +183,16 @@ int piezasMalColocadas(tEstado* estado) {
 }
 
 
+int manhatten(tEstado* estado, tEstado* objetivo) {
+    int h = 0;
+    for (int i = 0; i < N*N; i++) {
+        if (!((estado->fila[i] == objetivo->fila[i]) && (estado->col[i] == objetivo->col[i]))) //Not and
+        {
+            h += (abs(estado->fila[i] - objetivo->fila[i]) + abs(estado->col[i] - objetivo->col[i]));
+        }
+    }
+    return h;
+}
+
 
 

@@ -51,7 +51,7 @@ tNodo *nodoInicial(){
    inicial->padre=NULL;
    inicial->costeCamino=0;
    inicial->profundidad=0;
-   inicial->valHeuristica = piezasMalColocadas(inicial->estado);
+   inicial->valHeuristica = 0; // CHANGE: piezasMalColocadas(inicial->estado);
    return inicial;
 }
 
@@ -60,6 +60,7 @@ LISTA expandir(tNodo *nodo){
     LISTA sucesores=VACIA;
     tNodo *nuevo=calloc(1,sizeof(tNodo));
     tEstado *s;
+    tEstado *o = estadoObjetivo(); //para Manhatten
     for (op=1; op<=NUM_OPERADORES;op++){
       if (esValido(op,nodo->estado)){
                         //s=(tEstado *)calloc(1,sizeof(tEstado));
@@ -69,7 +70,7 @@ LISTA expandir(tNodo *nodo){
           nuevo->operador=op;
           nuevo->costeCamino=nodo->costeCamino + coste(op,nodo->estado);
           nuevo->profundidad=nodo->profundidad+1;
-          nuevo->valHeuristica = piezasMalColocadas(nuevo->estado);
+          nuevo->valHeuristica = manhatten(nuevo->estado, o);//CHANGE: piezasMalColocadas(nuevo->estado);
           InsertarUltimo(&sucesores,  (tNodo *) nuevo, (sizeof (tNodo)));
       }
   }
@@ -88,38 +89,6 @@ LISTA* find_node(LISTA *head, tEstado *estado_actual) {
     return NULL;
 }
 
-//void mysort(LISTA* head, LISTA* p1, LISTA* p2)
-//{
-//    LISTA temp2 = *p2;
-//    if (esVacia(temp2))
-//    {
-//        return;
-//    }
-//    LISTA temp1 = p1;
-//    LISTA* p3 = temp1->next;
-//    while (p3 != NULL)
-//    {
-//        int nodo1 = temp1->nodo;
-//        if (temp1->nodo > temp2->data)
-//        {
-//            swap(p1->data, p3->data);
-//        }
-//        p3 = p3->next;
-//    }
-//    mysort(head, p2, p2->next);
-//}
-//
-//void ordenarVoraz(LISTA* c) {
-//    LISTA aux = VACIA;
-//    aux = *c;
-//    LISTA aux2 = aux->next;
-//    tNodo* Actual = aux->nodo;
-//    tNodo* Siguente = aux2->nodo;
-//    if (Siguente->valHeuristica < Actual->valHeuristica) {
-//        aux->next = aux2->next;
-//        aux2->next = aux;
-//    }
-//} 
 
 
 //Búsqueda en Anchura

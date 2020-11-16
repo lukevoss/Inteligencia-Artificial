@@ -22,9 +22,15 @@ typedef struct {
 } tEstado;
 #endif
 
-static int puzle_inicial[N][N] = { {0,1}, {3,2} };
+static int puzle_inicial[N][N] = { 
+    {0,1}, 
+    {3,2} 
+};
 
-static int puzle_final[N][N] = { {1,2}, {0,3} };
+static int puzle_final[N][N] = { 
+    {1,2}, 
+    {0,3} 
+};
 
 /* A partir de una configuración de fichas construye un estado válido para el problema
   de acuerdo al tipo de datos tEstado. */
@@ -62,3 +68,5 @@ int iguales(tEstado* s, tEstado* t);
 int testObjetivo(tEstado* estado);
 
 int piezasMalColocadas(tEstado* estado);
+
+int manhatten(tEstado* estado, tEstado* objetivo);

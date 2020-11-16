@@ -14,6 +14,6 @@
 #include "busqueda.h"
 
 int main(){
-    solucionFin(busquedaVoraz());
+    solucionFin(busquedaA());
     return 0;
 }
