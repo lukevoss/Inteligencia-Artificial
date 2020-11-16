@@ -319,7 +319,7 @@ LISTA	ordenarListaVoraz(LISTA	A, LISTA Suc) {
 //Búsqueda Voraz
 //DONE
 int busquedaVoraz() {
-    int objetivo = 0, visitados = 0, expansiones = 0;;
+    int objetivo = 0, visitados = 0, expansiones = 0, maxNoAbiertos = 0, longitudActual = 0;;
     tNodo* Actual = (tNodo*)calloc(1, sizeof(tNodo));
     tNodo* Inicial = nodoInicial();
 
@@ -328,6 +328,11 @@ int busquedaVoraz() {
     LISTA Sucesores = VACIA;
     InsertarPrimero(&Abiertos, (tNodo*)Inicial, sizeof(tNodo));
     while (!esVacia(Abiertos) && !objetivo) {
+        longitudActual = LongitudLista(Abiertos);
+        if (longitudActual > maxNoAbiertos)
+        {
+            maxNoAbiertos = longitudActual;
+        }
         Actual = (tNodo*)calloc(1, sizeof(tNodo));
         ExtraerPrimero(Abiertos, Actual, sizeof(tNodo));
         EliminarPrimero(&Abiertos);
@@ -403,7 +408,7 @@ LISTA ordenarListaA(LISTA A, LISTA Suc) {
 //Búsqueda Voraz
 //DONE
 int busquedaA() {
-    int objetivo = 0, visitados = 0, expansiones = 0;;
+    int objetivo = 0, visitados = 0, expansiones = 0, maxNoAbiertos = 0, longitudActual = 0;;
     tNodo* Actual = (tNodo*)calloc(1, sizeof(tNodo));
     tNodo* Inicial = nodoInicial();
 
@@ -412,6 +417,11 @@ int busquedaA() {
     LISTA Sucesores = VACIA;
     InsertarPrimero(&Abiertos, (tNodo*)Inicial, sizeof(tNodo));
     while (!esVacia(Abiertos) && !objetivo) {
+        longitudActual = LongitudLista(Abiertos);
+        if (longitudActual > maxNoAbiertos)
+        {
+            maxNoAbiertos = longitudActual;
+        }
         Actual = (tNodo*)calloc(1, sizeof(tNodo));
         ExtraerPrimero(Abiertos, Actual, sizeof(tNodo));
         EliminarPrimero(&Abiertos);
