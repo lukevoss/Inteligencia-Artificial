@@ -47,56 +47,38 @@ tNodo *jugadaAdversario(tNodo *t) {
      return t;
 }
 
-int minimax(int board[9], int player) {
-    //How is the position like for player (their turn) on board?
-    int winner = win(board);
-    if (winner != 0) return winner * player;
-
-    move = -1;
-    int score = -2;//Losing moves are preferred to no move
-    int i;
-    for (i = 0; i < 9; ++i) {//For all moves,
-        if (board[i] == 0) {//If legal,
-            board[i] = player;//Try the move
-            int thisScore = -minimax(board, player * -1);
-            if (thisScore > score) {
-                score = thisScore;
-                move = i;
-            }//Pick the one that's worst for the opponent
-            board[i] = 0;//Reset board after try
+int valorMax(tNodo* t) {
+    int jugada = -1;
+    int valor_max = -10000;
+    int jugador = 1;
+        if (terminal(t))
+            valor_max = utilidad(t);
+        else {
+            for (int i = 0; i < 9; i++) {
+                if (esValida(t, i)) {
+                    tNodo* intento = malloc(sizeof(tNodo));
+                    intento = aplicaJugada(t, 1, i);
+                    valor_max = max(valor_max,valorMin(intento));
+                }
+            }
         }
-    }
-    if (move == -1) return 0;
-    return score;
+    return valor_max;
 }
 
-void computerMove(int board[9]) {
-    int move = -1;
-    int score = -2;
-    int i;
-    for (i = 0; i < 9; ++i) {
-        if (board[i] == 0) {
-            board[i] = 1;
-            int tempScore = -minimax(board, -1);
-            board[i] = 0;
-            if (tempScore > score) {
-                score = tempScore;
-                move = i;
+int valorMin(tNodo* t) {
+    int jugada = -1;
+    int valor_min = 10000;
+    int jugador = -1;
+    if (terminal(t))
+        valor_min = utilidad(t);
+    else {
+        for (int i = 0; i < 9; i++) {
+            if (esValida(t, i)) {
+                tNodo* intento = malloc(sizeof(tNodo));
+                intento = aplicaJugada(t, 1, i);
+                valor_min = min(valor_min, valorMin(intento));
             }
         }
     }
-    //returns a score based on minimax tree at a given node.
-    board[move] = 1;
+    return valor_min;
 }
-
-void playerMove(int board[9]) {
-    int move = 0;
-    do {
-        printf("\nInput move ([0..8]): ");
-        scanf("%d", &move);
-        printf("\n");
-    } while (move >= 9 || move < 0 && board[move] == 0);
-    board[move] = -1;
-}
-
-
