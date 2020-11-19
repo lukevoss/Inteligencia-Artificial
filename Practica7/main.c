@@ -18,7 +18,7 @@ int main()
     dispNodo(juego);
 
     printf("El Agente Inteligente juega con X \n El Jugador Humano con O \n Elige el turno 1:Primero o 2:Segundo ");
-    scanf("%d",&primero); printf("\n");
+    scanf_s("%d",&primero); printf("\n");
     if (primero==1)
        jugador=-1; // Turno de Min
     else
@@ -27,7 +27,7 @@ int main()
     ganador=terminal(juego);
     while(juego->vacias>0 && ganador==0){
        if (jugador==1)
-          juego=(tNodo *) PSEUDOminimax(juego);
+          juego=(tNodo *) minimax(juego, jugador);
        else
           juego=(tNodo *)jugadaAdversario(juego);
 
