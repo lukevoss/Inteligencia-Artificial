@@ -61,7 +61,7 @@ void dispEstado(tEstado *estado)
           {
               printf("Null");
           }
-          else{ printf("%d", estado->celdas[i][j]); }
+          else{ printf("%d ", estado->celdas[i][j]); }
       printf("\n");
    }
    printf("\n");
