@@ -77,7 +77,7 @@ int valorMin(tNodo* t) {
             if (esValida(t, i)) {
                 tNodo* intento = malloc(sizeof(tNodo));
                 intento = aplicaJugada(t, 1, i);
-                valor_min = min(valor_min, valorMin(intento));
+                valor_min = min(valor_min, valorMax(intento));
             }
         }
     }
