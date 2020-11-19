@@ -58,7 +58,7 @@ int valorMax(tNodo* t) {
             for (int i = 0; i < 9; i++) {
                 if (esValida(t, i)) {
                     tNodo* intento = malloc(sizeof(tNodo));
-                    intento = aplicaJugada(t, 1, i);
+                    intento = aplicaJugada(t, jugador, i);
                     valor_max = max(valor_max,valorMin(intento));
                 }
             }
@@ -76,7 +76,7 @@ int valorMin(tNodo* t) {
         for (int i = 0; i < 9; i++) {
             if (esValida(t, i)) {
                 tNodo* intento = malloc(sizeof(tNodo));
-                intento = aplicaJugada(t, 1, i);
+                intento = aplicaJugada(t, jugador, i);
                 valor_min = min(valor_min, valorMax(intento));
             }
         }
