@@ -36,13 +36,13 @@ tNodo* minimax(tNodo* t, int jugador) {
 tNodo *jugadaAdversario(tNodo *t) {
      int jugada = 0;
      printf("\nJugada ([0..8])?: ");
-     scanf("%d", &jugada);
+     scanf_s("%d", &jugada);
      while (!esValida(t,jugada))
      {
         printf("\n Intenta otra posicion del tablero \n");
         printf("\n");
         printf("\nJugada ([0..8])?: ");
-        scanf("%d", &jugada);
+        scanf_s("%d", &jugada);
      }
      t=aplicaJugada(t,-1,jugada);
      return t;
