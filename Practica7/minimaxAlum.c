@@ -52,8 +52,8 @@ int valorMax(tNodo* t) {
     int jugada = -1;
     int valor_max = -10000;
     int jugador = 1;
-        if (terminal(t))
-            valor_max = utilidad(t);
+        if (t->vacias == 0)
+            valor_max = terminal(t);
         else {
             for (int i = 0; i < 9; i++) {
                 if (esValida(t, i)) {
@@ -70,8 +70,8 @@ int valorMin(tNodo* t) {
     int jugada = -1;
     int valor_min = 10000;
     int jugador = -1;
-    if (terminal(t))
-        valor_min = utilidad(t);
+    if (t->vacias == 0)
+        valor_min = terminal(t);
     else {
         for (int i = 0; i < 9; i++) {
             if (esValida(t, i)) {
