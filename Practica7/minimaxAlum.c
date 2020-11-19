@@ -13,23 +13,24 @@
 
 
 
-tNodo *PSEUDOminimax(tNodo *t) {
-     int mejorJugada = -1;
-     int puntos = -2;
-     int i, temp;
-     tNodo *intento=malloc(sizeof(tNodo));
-     printf("\n Mi turno: \n");
-     for(i = 0; i < 9; ++i){
-      if (esValida(t,i)) {
-            intento=aplicaJugada(t,1,i); //Intenta jugada
-            temp =terminal(intento); // Calcula el valor minimax
-            if(temp > puntos) {
-              puntos = temp;
-              mejorJugada = i;
+tNodo* minimax(tNodo* t, int jugador) {
+    int mejorJugada = -1;
+    int max_actual, jugada;
+    int max = -10000;
+    tNodo* intento = malloc(sizeof(tNodo));
+    printf("\n Mi turno: \n");
+    for (jugada = 0; jugada < 9; ++jugada) {
+        if (esValida(t, jugada)) {
+            intento = aplicaJugada(t, 1, jugada); //Intenta jugada
+            max_actual = valorMin(intento); // Calcula el valor minimax
+            if (max_actual > max) {
+                max = max_actual;
+                mejorJugada = jugada;
             }
-      }}//for
-      t=aplicaJugada(t,1,mejorJugada);
-      return t;
+        }
+    }//for
+    t = aplicaJugada(t, jugador, mejorJugada);
+    return t;
 }
 
 tNodo *jugadaAdversario(tNodo *t) {
