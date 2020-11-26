@@ -6,7 +6,6 @@
 /* Grado en Ingenieria Informatica - UCA   */
 /*******************************************/
 
-tNodo *jugadaAdversario(tNodo *t);
 tNodo* minimax(tNodo* t, int jugador);
 int valorMin(tNodo* t, int profundidad);
 int valorMax(tNodo* t, int profundidad);
