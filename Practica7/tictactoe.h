@@ -47,6 +47,7 @@ int terminal(tNodo *actual);
 void dispNodo(tNodo *s);
 int opuesto( int jugador);
 int lleno(tNodo *s);
+int nodosNoTerminales(tNodo* Nodo);
 
 
 

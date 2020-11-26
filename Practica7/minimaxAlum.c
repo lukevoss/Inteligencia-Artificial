@@ -13,16 +13,17 @@
 
 
 
-tNodo* minimax(tNodo* t, int jugador) {
+tNodo* minimax(tNodo* t, int jugador, int limite) {
     int mejorJugada = -1;
     int max_actual, jugada;
     int max = -10000;
+    int profundidad = 1;
     tNodo* intento = malloc(sizeof(tNodo));
     printf("\n Mi turno: \n");
     for (jugada = 0; jugada < 9; ++jugada) {
         if (esValida(t, jugada)) {
             intento = aplicaJugada(t, 1, jugada); //Intenta jugada
-            max_actual = valorMin(intento); // Calcula el valor minimax
+            max_actual = valorMin(intento, &profundidad, limite); // Calcula el valor minimax
             if (max_actual > max) {
                 max = max_actual;
                 mejorJugada = jugada;
@@ -48,36 +49,42 @@ tNodo *jugadaAdversario(tNodo *t) {
      return t;
 }
 
-int valorMax(tNodo* t) {
+int valorMax(tNodo* t, int profundidad, int limite) {
     int jugada = -1;
     int valor_max = -10000;
     int jugador = 1;
         if (t->vacias == 0)
             valor_max = terminal(t);
         else {
-            for (int i = 0; i < 9; i++) {
-                if (esValida(t, i)) {
-                    tNodo* intento = malloc(sizeof(tNodo));
-                    intento = aplicaJugada(t, jugador, i);
-                    valor_max = max(valor_max,valorMin(intento));
+            if (profundidad < limite) {
+                profundidad++;
+                for (int i = 0; i < 9; i++) {
+                    if (esValida(t, i)) {
+                        tNodo* intento = malloc(sizeof(tNodo));
+                        intento = aplicaJugada(t, jugador, i);
+                        valor_max = max(valor_max, valorMin(intento, &profundidad, limite));
+                    }
                 }
             }
         }
     return valor_max;
 }
 
-int valorMin(tNodo* t) {
+int valorMin(tNodo* t, int profundidad, int limite) {
     int jugada = -1;
     int valor_min = 10000;
     int jugador = -1;
     if (t->vacias == 0)
         valor_min = terminal(t);
     else {
-        for (int i = 0; i < 9; i++) {
-            if (esValida(t, i)) {
-                tNodo* intento = malloc(sizeof(tNodo));
-                intento = aplicaJugada(t, jugador, i);
-                valor_min = min(valor_min, valorMax(intento));
+        if (profundidad < limite) {
+            profundidad++;
+            for (int i = 0; i < 9; i++) {
+                if (esValida(t, i)) {
+                    tNodo* intento = malloc(sizeof(tNodo));
+                    intento = aplicaJugada(t, jugador, i);
+                    valor_min = min(valor_min, valorMax(intento, &profundidad, limite));
+                }
             }
         }
     }
