@@ -7,4 +7,4 @@
 /*******************************************/
 
 tNodo *jugadaAdversario(tNodo *t);
-tNodo *PSEUDOminimax(tNodo *Nodo);
+tNodo* minimax(tNodo* t, int jugador, int limite);
