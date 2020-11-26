@@ -27,7 +27,7 @@ int main()
     ganador=terminal(juego);
     while(juego->vacias>0 && ganador==0){
        if (jugador==1)
-          juego=(tNodo *) minimax(juego, jugador);
+          juego=(tNodo *) poda_ab(juego, jugador);
        else
           juego=(tNodo *)jugadaAdversario(juego);
 
